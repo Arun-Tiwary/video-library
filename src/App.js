@@ -2,9 +2,10 @@ import { useEffect } from "react";
 import "./App.css";
 import { serverRequest } from "./api/serverRequests";
 import AppRouter from "./routers/index";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, HashRouter } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { SET_VIDEO_LIST } from "./redux/actions/actionTypes";
+import HeaderNavigation from "./components/navigation/HeaderNavigtion";
 
 function App() {
   //disaptch for dispatching data to reducer
@@ -23,13 +24,15 @@ function App() {
       }
     }
     fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <div className="App">
-      <BrowserRouter>
+      <HashRouter>
+        <HeaderNavigation />
         <AppRouter />
-      </BrowserRouter>
+      </HashRouter>
     </div>
   );
 }

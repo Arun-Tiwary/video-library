@@ -7,7 +7,10 @@ const AppRouter = () => {
   return (
     <Routes>
       <Route path="/" element={<view.HomePage />} />
+      <Route path="/favorite" element={<view.Favorites />} />
+      <Route path="/library" element={<view.Library />} />
       <Route path="/videos" element={<VideoList />} />
+
       <Route path="*" element={<view.NotFound />} />
     </Routes>
   );

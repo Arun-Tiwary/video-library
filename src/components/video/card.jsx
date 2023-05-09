@@ -10,20 +10,17 @@ import Typography from "@mui/material/Typography";
 
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-
-import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
+import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  FAV_TOGGLE,
-  WATCH_LATER_TOGGLE,
-} from "../../redux/actions/actionTypes";
+import { TOGGLE_BOOKMARK, TOGGLE_FAV } from "../../redux/actions/actionTypes";
+import { imageURL, videoExsist } from "../../utils/videoUtil";
 
 const CardVideo = ({ id }) => {
   // accesing global state
-  const { videoList, likedVideos, watchLater } = useSelector(
+  const { videoList, likedVideos, bookmark } = useSelector(
     (state) => state.video
   );
 
@@ -37,13 +34,13 @@ const CardVideo = ({ id }) => {
 
   // function to check if video already exsist in or not
 
-  const videoExsist = (videoList, id) => videoList.some((_id) => _id === id);
+  // const videoExsist = (videoList, id) => videoList.some((_id) => _id === id);
 
   //console
   console.log(typeof videoExsist);
 
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: 345, margin: "0 auto" }}>
       <CardHeader
         // avatar={
         //   <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
@@ -56,16 +53,27 @@ const CardVideo = ({ id }) => {
           </IconButton>
         }
         title={author}
-        subheader={`${date}  ${views} views`}
-      />
+        subheader={`${date}`}
+      >
+        {" "}
+      </CardHeader>
+
       <CardMedia
         component="img"
         height="194"
-        image={`https://img.youtube.com/vi/${id}/hqdefault.jpg`}
+        image={imageURL(id)}
         alt="Paella dish"
       />
       <CardContent>
-        <Typography variant="body2" color="text.secondary">
+        <Typography
+          sx={{
+            textOverflow: "ellipsis",
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+          }}
+          variant="body2"
+          color="text.secondary"
+        >
           {title}
         </Typography>
       </CardContent>
@@ -76,26 +84,23 @@ const CardVideo = ({ id }) => {
         <IconButton aria-label="add to favorites">
           {videoExsist(likedVideos, id) ? (
             <FavoriteIcon
-              onClick={() => dispatch({ type: FAV_TOGGLE, payload: id })}
+              onClick={() => dispatch({ type: TOGGLE_FAV, payload: id })}
             />
           ) : (
             <FavoriteBorderIcon
-              onClick={() => dispatch({ type: FAV_TOGGLE, payload: id })}
+              onClick={() => dispatch({ type: TOGGLE_FAV, payload: id })}
             />
           )}
         </IconButton>
+        <Typography>{`${views} views`}</Typography>
         <IconButton aria-label="playlist">
-          {videoExsist(watchLater, id) ? (
+          {videoExsist(bookmark, id) ? (
             <BookmarkIcon
-              onClick={() =>
-                dispatch({ type: WATCH_LATER_TOGGLE, payload: id })
-              }
+              onClick={() => dispatch({ type: TOGGLE_BOOKMARK, payload: id })}
             />
           ) : (
             <BookmarkBorderIcon
-              onClick={() =>
-                dispatch({ type: WATCH_LATER_TOGGLE, payload: id })
-              }
+              onClick={() => dispatch({ type: TOGGLE_BOOKMARK, payload: id })}
             />
           )}
         </IconButton>

@@ -1,1 +1,1 @@
-export { default as VideoList } from "./video/VideoList";
+export { default as VideoList } from "../pages/VideoList";

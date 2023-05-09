@@ -1,9 +1,6 @@
 export const SET_VIDEO_LIST = "SET_VIDEO_LIST";
 export const SHOW_TOAST = "SHOW_TOAST";
 export const ADD_DATA = "ADD_DATA";
-export const ADD_TO_FAV = "ADD_TO_FAV";
-export const REMOVE_FROM_FAV = "REMOVE_FROM_FAV";
-export const ADD_TO_WATCH_LATER = "ADD_TO_WATCH_LATER";
-export const REMOVE_FROM_WATCH_LATER = "REMOVE_FROM_WATCH_LATER";
-export const FAV_TOGGLE = "FAV_TOGGLE";
-export const WATCH_LATER_TOGGLE = "WATCH_LATER_TOGGLE";
+export const TOGGLE_FAV = "TOGGLE_FAV";
+export const TOGGLE_PLAYLIST = "TOGGLE_PLAYLIST";
+export const TOGGLE_BOOKMARK = "TOGGLE_BOOKMARK";
