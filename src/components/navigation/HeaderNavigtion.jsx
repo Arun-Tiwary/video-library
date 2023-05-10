@@ -17,8 +17,11 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import FavoriteSharpIcon from "@mui/icons-material/FavoriteSharp";
 import VideoLibrarySharpIcon from "@mui/icons-material/VideoLibrarySharp";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { getFilterdVideo } from "../../utils/videoUtil";
+import VideoList from "../../pages/VideoList";
+import { SEARCHING } from "../../redux/actions/actionTypes";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -61,14 +64,26 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function HeaderNavigation() {
+  const [searchText, setSearchText] = React.useState("");
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
   // getting values from global store
-  const { likedVideos } = useSelector((state) => state.video);
+  const { likedVideos, videoList } = useSelector((state) => state.video);
+
+  //
+  const dispatch = useDispatch();
 
   // navigation
   const navigate = useNavigate();
+
+  // function to handle search
+  const searchHandler = (e) => {
+    if (e.keyCode === 13) {
+      dispatch({ type: SEARCHING, payload: searchText });
+      setSearchText("");
+    }
+  };
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -163,6 +178,7 @@ export default function HeaderNavigation() {
       </MenuItem>
     </Menu>
   );
+  console.log(searchText);
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -192,7 +208,12 @@ export default function HeaderNavigation() {
             </SearchIconWrapper>
             <StyledInputBase
               placeholder="Search…"
+              value={searchText}
               inputProps={{ "aria-label": "search" }}
+              onKeyDown={searchHandler}
+              onChange={(e) => {
+                setSearchText(e.target.value);
+              }}
             />
           </Search>
           <Box sx={{ flexGrow: 1 }} />

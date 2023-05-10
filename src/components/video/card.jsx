@@ -37,7 +37,7 @@ const CardVideo = ({ id }) => {
   // const videoExsist = (videoList, id) => videoList.some((_id) => _id === id);
 
   //console
-  console.log(typeof videoExsist);
+  // console.log(typeof videoExsist);
 
   return (
     <Card sx={{ maxWidth: 345, margin: "0 auto" }}>

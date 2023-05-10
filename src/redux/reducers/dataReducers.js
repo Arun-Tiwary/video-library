@@ -1,4 +1,5 @@
 import {
+  SEARCHING,
   SET_VIDEO_LIST,
   TOGGLE_BOOKMARK,
   TOGGLE_FAV,
@@ -45,6 +46,12 @@ export const dataReducer = (state = initialState, action) => {
         bookmark: state.bookmark.some((id) => id === action.payload)
           ? state.bookmark.filter((_id) => _id !== action.payload)
           : [...state.bookmark, action.payload],
+      };
+
+    case SEARCHING:
+      return {
+        ...state,
+        searchValue: action.payload,
       };
 
     // case TOGGLE_BOOKMARK:

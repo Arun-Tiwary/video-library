@@ -2,10 +2,14 @@ import { Grid, Box } from "@mui/material";
 import React from "react";
 import { useSelector } from "react-redux";
 import CardVideo from "../components/video/card";
+import { getFilterdVideo } from "../utils/videoUtil";
 
 const VideoList = () => {
   //getting values from global store
-  const { videoList } = useSelector((state) => state.video);
+  const { videoList, searchValue } = useSelector((state) => state.video);
+
+  const filterdVideoList = getFilterdVideo(videoList, searchValue);
+  console.log(filterdVideoList);
 
   return (
     <div>
